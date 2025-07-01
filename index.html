@@ -292,20 +292,74 @@
         opacity: 1;
       }
     }
+.perfil-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.perfil-container img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.perfil-info {
+  flex: 1;
+}
+
+.pregunta {
+  background: #f7f7f7;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.pregunta label {
+  display: block;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.btn-pequeno {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin-top: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    padding: 0 10px;
+  }
+
+  .perfil-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pregunta {
+    font-size: 15px;
+  }
+
+  .btn, .btn-pequeno {
+    width: 100%;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+}
   </style>
 </head>
-    <script>
-  function mostrarSeccion(id) {
-    const secciones = ['seccion-inicio', 'seccion-temario', 'seccion-calculadoras'];
-    secciones.forEach(seccion => {
-      const elemento = document.getElementById(seccion);
-      if (elemento) elemento.style.display = 'none';
-    });
-
-    const seccionMostrar = document.getElementById('seccion-' + id);
-    if (seccionMostrar) seccionMostrar.style.display = 'block';
-  }
-</script>
 <body>
 	 <div class="pantalla-bienvenida" id="bienvenida">
     <div class="mensaje">¡Bienvenido!</div>
@@ -416,7 +470,7 @@ Adicionalmente se utiliza para analizar el capital requerido. Considerando las i
         1.9 EL PROBLEMA DE CONTROL DE INVENTARIOS<br>
         1.10 PROBLEMA DE CONTROL DE INVENTARIOS<br>
         1.11 MODELOS ECONOMICOS&nbsp; &nbsp; 
-	<br><a href="https://docs.google.com/forms/d/e/1FAIpQLSf_6uMgx8X6NYW6EMznij2HxU0fuDr-HIJv02GwNegnyJToRQ/viewform?usp=preview">EVALUACION UNIDAD 1</a>&nbsp;&nbsp; </p>
+ </p>
 	<BR>
   <p><strong><a href="#" onclick="mostrarUnidades('unidad2')">UNIDAD 2- MULTIPLICADORES SIMPLEX Y DUALIDAD</a></strong><br>
         &nbsp;2.1 MULTIPLICADORES<br>
@@ -424,7 +478,7 @@ Adicionalmente se utiliza para analizar el capital requerido. Considerando las i
       2.3 DUALIDAD Y SIMPLEX DUAL<br>
       2.4 ANALISIS DE SENSIBILIDAD&nbsp;<br>
       2.5 PROGRAMACION LINEAL ENTERA Y MIXTA<br>
-	<a href="https://docs.google.com/forms/d/e/1FAIpQLSfFtrkjDjk8CfUboVUtgAVAsxOtloBpl4B1iY_f9c_HfLUrEw/viewform?usp=header">EVALUACION UNIDAD 2</a><BR></p>
+	<BR></p>
       <BR><p><strong><a href="#" onclick="mostrarUnidades('unidad3')">UNIDAD 3- PRINCIPIO DE REDES</a>&nbsp;&nbsp;</strong>&nbsp;<br>
 3.1 CONCEPTOS BASICOS<br>
 3.2 EL PROBLEMA DE TRANSPORTE<br>
@@ -649,7 +703,63 @@ function calculateCPM() {
 }
 </script>
 	</div>
+<!-- PERFIL -->
+<div id="seccion-perfil" class="section" style="display: none;">
+  <h2>Mi Perfil</h2>
+	<button class="btn-pequeno" onclick="cerrarPerfil()">Cerrar perfil</button>
+  <div class="perfil-container">
+    <img id="foto-perfil" src="https://via.placeholder.com/100" alt="Foto de Perfil">
+    <div class="perfil-info">
+      <p><strong>Usuario:</strong> <span id="nombre-usuario"></span></p>
+      <label class="btn-pequeno">
+        Cambiar foto:
+        <input type="file" accept="image/*" onchange="guardarFotoPerfil(this)" hidden>
+      </label>
+      <button class="btn-pequeno" onclick="cambiarContrasena()">Cambiar contraseña</button>
+    </div>
+  </div>
 
+  <hr>
+
+  <h3>Examen de Evaluación</h3>
+  <button class="btn" onclick="mostrarExamen()">Comenzar Examen</button>
+
+  <form id="examen" style="display: none;" onsubmit="return evaluarExamen()">
+    <div class="pregunta">
+      <p>1. ¿Qué es la investigación de operaciones?</p>
+      <label><input type="radio" name="p1" value="1"> Un área de estudio enfocada exclusivamente en procesos biológicos</label>
+      <label><input type="radio" name="p1" value="2"> Una técnica de programación de computadoras</label>
+      <label><input type="radio" name="p1" value="3"> Un enfoque científico para la toma de decisiones óptimas</label>
+    </div>
+    <div class="pregunta">
+      <p>2. ¿Cuál de los siguientes elementos es fundamental en la investigación de operaciones?</p>
+      <label><input type="radio" name="p2" value="1"> Modelos matemáticos y análisis cuantitativo</label>
+      <label><input type="radio" name="p2" value="2"> Juicio personal sin datos</label>
+      <label><input type="radio" name="p2" value="3"> Opiniones subjetivas</label>
+    </div>
+    <div class="pregunta">
+      <p>3. ¿Cuál es el objetivo principal de la investigación de operaciones?</p>
+      <label><input type="radio" name="p3" value="1"> Minimizar la necesidad de recursos humanos</label>
+      <label><input type="radio" name="p3" value="2"> Mejorar la toma de decisiones mediante modelos analíticos</label>
+      <label><input type="radio" name="p3" value="3"> Eliminar la competencia en el mercado</label>
+    </div>
+    <div class="pregunta">
+      <p>4. ¿Cuál de las siguientes disciplinas NO está directamente relacionada con la investigación de operaciones?</p>
+      <label><input type="radio" name="p4" value="1"> Filosofía clásica</label>
+      <label><input type="radio" name="p4" value="2"> Matemáticas</label>
+      <label><input type="radio" name="p4" value="3"> Estadística</label>
+    </div>
+    <div class="pregunta">
+      <p>5. ¿Cuál de las siguientes situaciones es un ejemplo típico donde se puede aplicar la investigación de operaciones?</p>
+      <label><input type="radio" name="p5" value="1"> Diseñar una campaña publicitaria sin datos previos</label>
+      <label><input type="radio" name="p5" value="2"> Motivar a los empleados con charlas motivacionales</label>
+      <label><input type="radio" name="p5" value="3"> Determinar la mejor ruta para una flota de reparto</label>
+    </div>
+    <button type="submit" class="btn">Enviar</button>
+    <p id="resultado-examen" style="font-weight: bold; margin-top: 10px;"></p>
+  </form>
+</div>
+</div>
   <div id="modal" class="modal-fondo">
     <div class="modal-contenido">
       <span class="cerrar" onclick="cerrarModal()">&times;</span>
@@ -674,13 +784,14 @@ function calculateCPM() {
     let fondoActual = localStorage.getItem('fondo');
     if (fondoActual) document.body.style.backgroundImage = `url(${fondoActual})`;
 
-    document.getElementById("btnSesion").addEventListener("click", () => {
-      if (sessionStorage.getItem("logueado") === "true") {
-        window.location.href = "perfil.html";
-      } else {
-        abrirModal();
-      }
-    });
+document.getElementById("btnSesion").addEventListener("click", () => {
+  if (sessionStorage.getItem("logueado") === "true") {
+    mostrarSeccion('perfil');
+    cargarPerfil(); // Para mostrar nombre e imagen
+  } else {
+    abrirModal();
+  }
+});
 
     function toggleCalculator() {
       const el = document.getElementById('calculator');
@@ -732,12 +843,14 @@ function calculateCPM() {
       document.getElementById('calc-display').value = '';
     }
 
-    function mostrarSeccion(id) {
-      ['inicio', 'temario', 'calculadoras'].forEach(s => {
-        document.getElementById(`seccion-${s}`).style.display = 'none';
-      });
-      document.getElementById(`seccion-${id}`).style.display = 'block';
-    }
+function mostrarSeccion(id) {
+  ['inicio', 'temario', 'calculadoras', 'perfil'].forEach(s => {
+    const sec = document.getElementById(`seccion-${s}`);
+    if (sec) sec.style.display = 'none';
+  });
+  const visible = document.getElementById(`seccion-${id}`);
+  if (visible) visible.style.display = 'block';
+}
 
     function abrirModal() {
       document.getElementById('modal').style.display = 'block';
@@ -779,21 +892,23 @@ function calculateCPM() {
       }
     }
 
-    function iniciarSesion() {
-      const usuario = document.getElementById('login-usuario').value.trim();
-      const clave = document.getElementById('login-clave').value;
+function iniciarSesion() {
+  const usuario = document.getElementById('login-usuario').value.trim();
+  const clave = document.getElementById('login-clave').value;
 
-      let usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+  let usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
 
-      if (usuarios[usuario] && usuarios[usuario] === clave) {
-        alert("¡Inicio de sesión exitoso!");
-        sessionStorage.setItem("logueado", "true");
-        cerrarModal();
-        document.getElementById("btnSesion").innerText = "Mi Perfil";
-      } else {
-        alert("Usuario o contraseña incorrectos.");
-      }
-    }
+  if (usuarios[usuario] && usuarios[usuario] === clave) {
+    alert("¡Inicio de sesión exitoso!");
+    sessionStorage.setItem("logueado", "true");
+    sessionStorage.setItem("usuarioActual", usuario); // Guarda el nombre
+    cerrarModal();
+    document.getElementById("btnSesion").innerText = "Mi Perfil";
+    mostrarPerfil(); // Mostramos perfil directamente
+  } else {
+    alert("Usuario o contraseña incorrectos.");
+  }
+}
 
     window.onclick = function(event) {
       const modal = document.getElementById('modal');
@@ -844,7 +959,7 @@ function calculateCPM() {
     mostrarSeccion('temario');
 
     const unidades = {
-      unidad1: `
+   unidad1: `
 <p><h1>UNIDAD 1-INTRODUCCION A LA UNIDAD&nbsp;</h1>
       <h3>
         <!-- Tagline -->
@@ -1359,12 +1474,162 @@ x1, x2, x3 ≥ 0</strong></p>
       ● <strong>Método de la ruta preferente</strong>:se fundamenta en la asignación a partir del costo mínimo de distribuir una unidad. Primero se identifica este costo se realiza la asignación de recursos máxima posible y luego se identifica el siguiente costo menor realizando el mismo procedimiento hasta realizar todas las asignaciones. &nbsp;</p>  
 `	
     };
-
     const contenedor = document.getElementById("contenido-temario");
     if (contenedor) {
       contenedor.innerHTML = unidades[unidad] || "<p>Contenido no disponible.</p>";
     }
   }
+</script>
+<script>
+function guardarFotoPerfil(input) {
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    document.getElementById('foto-perfil').src = e.target.result;
+    localStorage.setItem('fotoPerfil', e.target.result);
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function mostrarPerfil() {
+  mostrarSeccion('perfil');
+
+  const usuario = sessionStorage.getItem("usuarioActual");
+  document.getElementById("nombre-usuario").innerText = usuario;
+
+  const fotoGuardada = localStorage.getItem("fotoPerfil");
+  if (fotoGuardada) {
+    document.getElementById("foto-perfil").src = fotoGuardada;
+  }
+}
+
+function mostrarExamen() {
+  document.getElementById("examen").style.display = "block";
+}
+
+function evaluarExamen() {
+  const respuestas = {
+    p1: "3",
+    p2: "1",
+    p3: "2",
+    p4: "1",
+    p5: "3"
+  };
+
+  let aciertos = 0;
+  for (let i = 1; i <= 5; i++) {
+    const respuesta = document.querySelector(`input[name="p${i}"]:checked`);
+    if (respuesta && respuesta.value === respuestas[`p${i}`]) {
+      aciertos++;
+    }
+  }
+
+  const resultado = document.getElementById("resultado-examen");
+  resultado.innerText = `Respuestas correctas: ${aciertos} — ${aciertos >= 4 ? "Aprobado 🎉" : "No aprobado ❌"}`;
+
+for (let i = 1; i <= 5; i++) {
+    const opciones = document.querySelectorAll(`input[name="p${i}"]`);
+    opciones.forEach(opcion => opcion.checked = false);
+  }
+	
+  return false; // Previene recarga del formulario
+}
+</script>
+<script>
+function cambiarContrasena() {
+  const nuevoPass = prompt("Ingresa tu nueva contraseña:");
+  if (!nuevoPass || nuevoPass.trim() === "") return alert("Contraseña no válida.");
+
+  let usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+  const usuarioActual = sessionStorage.getItem("usuarioActual");
+
+  if (usuarios[usuarioActual]) {
+    usuarios[usuarioActual] = nuevoPass;
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    alert("Contraseña actualizada correctamente.");
+  }
+}
+</script>
+<div id="despedida" class="pantalla-bienvenida" style="display: none;">
+  <div class="mensaje">¡Vuelve pronto!</div>
+</div>
+<script>
+function cerrarPerfil() {
+  // Mostrar animación de despedida
+  const despedida = document.getElementById("despedida");
+  despedida.style.display = "flex";
+  despedida.classList.remove("ocultar");
+
+  // Esperar a que la animación termine antes de redirigir
+  setTimeout(() => {
+    despedida.classList.add("ocultar");
+
+    // Volver a estado de inicio
+    sessionStorage.removeItem("logueado");
+    sessionStorage.removeItem("usuarioActual");
+    document.getElementById("btnSesion").innerText = "Inicia sesión";
+    mostrarSeccion('inicio');
+  }, 2500); // 2.5 segundos
+}
+</script>
+<div id="easterEggIcon" onclick="lanzarConfeti()" style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+    font-size: 32px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+">
+  🎉
+</div>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+	<audio id="tonoUMB" src="Imagenes/Leder's Gymnopedie (Restored) __ MOTHER 3.mp3"></audio>
+<script>
+const teclas = new Set();
+const combinacionSecreta = ['u', 'm', 'b'];
+let activado = false;
+
+document.addEventListener('keydown', (e) => {
+  teclas.add(e.key.toLowerCase());
+
+  // Verifica si las 3 teclas están presionadas
+  if (combinacionSecreta.every(k => teclas.has(k))) {
+    const icono = document.getElementById("easterEggIcon");
+    const audio = document.getElementById("tonoUMB");
+
+    if (!activado) {
+      icono.style.display = "block";
+      audio.currentTime = 0;
+      audio.play().catch(err => console.log("Audio error:", err));
+    } else {
+      icono.style.display = "none";
+      audio.pause();
+      audio.currentTime = 0;
+    }
+
+    activado = !activado;
+    teclas.clear(); // Reinicia el estado
+  }
+});
+
+document.addEventListener('keyup', (e) => {
+  teclas.delete(e.key.toLowerCase());
+});
+
+function lanzarConfeti() {
+  confetti({
+    particleCount: 150,
+    spread: 100,
+    origin: { y: 0.6 }
+  });
+}
 </script>
 </body>
 </html>
